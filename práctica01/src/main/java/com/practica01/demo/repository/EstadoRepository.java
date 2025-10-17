@@ -5,7 +5,6 @@
 
 package com.practica01.demo.repository;
 import com.practica01.demo.model.Estado;
-import com.practica01.model.Estado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
  
