@@ -1,2 +1,2 @@
-# Pr-ctica01
+# Práctica01
 Grupo #4
