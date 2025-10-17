@@ -5,8 +5,8 @@
 
 package com.practica01.demo.service;
 
-import com.practica01.model.Estado;
-import com.practica01.repository.EstadoRepository;
+import com.practica01.demo.model.Estado;
+import com.practica01.demo.repository.EstadoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
