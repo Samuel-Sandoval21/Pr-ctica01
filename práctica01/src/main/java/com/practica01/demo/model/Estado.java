@@ -14,7 +14,7 @@ public class Estado {
     @Column(name = "id_estado")
     private Long idEstado;
 
-    @Column(name = "nombre_estado", nullable = false, length = 100)
+    @Column(name = "nombre_estado", nullable = false, length = 50)
     private String nombreEstado;
 
     @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL)
