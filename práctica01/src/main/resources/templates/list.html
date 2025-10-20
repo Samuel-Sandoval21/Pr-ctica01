@@ -21,6 +21,7 @@
 <th>Dureza Madera</th>
 <th>Altura Promedio</th>
 <th>Edad Promedio</th>
+<th>Estado</th>
 <th>Imagen</th>
 <th>Acciones</th>
 </tr>
@@ -33,7 +34,11 @@
 <td th:text="${arbol.durezaMadera}"></td>
 <td th:text="${arbol.alturaPromedio}"></td>
 <td th:text="${arbol.edadPromedio}"></td>
-<td><img th:src="@{${arbol.rutaImagen}}" alt="Imagen" width="80"></td>
+<td th:text="${arbol.estado != null ? arbol.estado.nombreEstado : 'Sin Estado'}"></td>
+<td>
+<img th:if="${arbol.rutaImagen != null && arbol.rutaImagen != ''}" 
+                         th:src="@{${arbol.rutaImagen}}" alt="Imagen" width="80">
+</td>
 <td>
 <a th:href="@{'/arboles/editar/' + ${arbol.idArbol}}" class="btn btn-warning btn-sm">Editar</a>
 <a th:href="@{'/arboles/eliminar/' + ${arbol.idArbol}}" class="btn btn-danger btn-sm">Eliminar</a>
@@ -46,5 +51,3 @@
 <div th:replace="fragments :: footer"></div>
 </body>
 </html>
-
- 

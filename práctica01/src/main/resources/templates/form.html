@@ -9,33 +9,52 @@
 <div th:replace="fragments :: header"></div>
  
     <div class="container mt-5">
-<h1 th:text="${arbol.id_arbol} != null ? 'Editar Árbol' : 'Agregar Árbol'"></h1>
-<form th:action="@{/arboles/guardar}" th:object="${arbol}" method="post" enctype="multipart/form-data">
+<h1 th:text="${arbol.idArbol} != null ? 'Editar Árbol' : 'Agregar Árbol'"></h1>
+ 
+        <form th:action="@{/arboles/guardar}" th:object="${arbol}" method="post">
 <div class="mb-3">
 <label>Nombre Común</label>
-<input type="text" th:field="*{nombre_comun}" class="form-control" required>
+<input type="text" th:field="*{nombreComun}" class="form-control" required>
 </div>
-<div class="mb-3">
+ 
+            <div class="mb-3">
 <label>Tipo de Flor</label>
-<input type="text" th:field="*{tipo_flor}" class="form-control" required>
+<input type="text" th:field="*{tipoFlor}" class="form-control" required>
 </div>
-<div class="mb-3">
+ 
+            <div class="mb-3">
 <label>Dureza Madera</label>
-<input type="text" th:field="*{dureza_madera}" class="form-control" required>
+<input type="text" th:field="*{durezaMadera}" class="form-control" required>
 </div>
-<div class="mb-3">
+ 
+            <div class="mb-3">
 <label>Altura Promedio (m)</label>
-<input type="number" th:field="*{altura_promedio}" class="form-control" required>
+<input type="number" th:field="*{alturaPromedio}" class="form-control" step="0.01" required>
 </div>
-<div class="mb-3">
+ 
+            <div class="mb-3">
 <label>Edad Promedio (años)</label>
-<input type="number" th:field="*{edad_promedio}" class="form-control" required>
+<input type="number" th:field="*{edadPromedio}" class="form-control" required>
 </div>
-<div class="mb-3">
+ 
+            <div class="mb-3">
+<label>Estado</label>
+<select th:field="*{estado.idEstado}" class="form-control" required>
+<option value="">-- Seleccione un Estado --</option>
+<option th:each="estado : ${estados}" 
+                            th:value="${estado.idEstado}" 
+                            th:text="${estado.nombreEstado}"
+                            th:selected="${arbol.estado != null && arbol.estado.idEstado == estado.idEstado}">
+</option>
+</select>
+</div>
+ 
+            <div class="mb-3">
 <label>Ruta de Imagen</label>
-<input type="text" th:field="*{ruta_imagen}" class="form-control">
+<input type="text" th:field="*{rutaImagen}" class="form-control" placeholder="ej: /uploads/arbol.jpg">
 </div>
-<button type="submit" class="btn btn-success">Guardar</button>
+ 
+            <button type="submit" class="btn btn-success">Guardar</button>
 <a href="/arboles" class="btn btn-secondary">Cancelar</a>
 </form>
 </div>
