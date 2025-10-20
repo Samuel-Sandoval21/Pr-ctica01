@@ -29,7 +29,7 @@
 
             <div class="mb-3">
                 <label>Altura Promedio (m)</label>
-                <input type="number" th:field="*{alturaPromedio}" class="form-control" required>
+                <input type="number" th:field="*{alturaPromedio}" class="form-control" step="0.01" required>
             </div>
 
             <div class="mb-3">
@@ -39,18 +39,19 @@
 
             <div class="mb-3">
                 <label>Estado</label>
-                <select th:field="*{estado}" class="form-control" required>
-                    <option value="" disabled th:selected="${arbol.estado == null}">-- Seleccione un Estado --</option>
+                <select th:field="*{estado.idEstado}" class="form-control" required>
+                    <option value="">-- Seleccione un Estado --</option>
                     <option th:each="estado : ${estados}" 
-                            th:value="${estado}" 
-                            th:text="${estado.nombreEstado}">
+                            th:value="${estado.idEstado}" 
+                            th:text="${estado.nombreEstado}"
+                            th:selected="${arbol.estado != null && arbol.estado.idEstado == estado.idEstado}">
                     </option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label>Ruta de Imagen</label>
-                <input type="text" th:field="*{rutaImagen}" class="form-control">
+                <input type="text" th:field="*{rutaImagen}" class="form-control" placeholder="ej: /uploads/arbol.jpg">
             </div>
 
             <button type="submit" class="btn btn-success">Guardar</button>
