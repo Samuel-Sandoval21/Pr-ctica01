@@ -6,26 +6,29 @@
 package com.practica01.demo.controller;
  
 import com.practica01.demo.model.Arbol;
+import com.practica01.demo.model.Estado;
 import com.practica01.demo.service.ArbolService;
+import com.practica01.demo.service.EstadoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
  
 @Controller
+@RequestMapping("/arboles")
 public class ArbolController {
  
     @Autowired
     private ArbolService arbolService;
  
+    @Autowired
+    private EstadoService estadoService;
+ 
     // -------------------------------
-    // LISTADO DE ÁRBOLES
+    // LISTAR ARBOLES
     // -------------------------------
-    @GetMapping("/arboles")
+    @GetMapping
     public String listarArboles(Model model) {
         List<Arbol> lista = arbolService.listar();
         model.addAttribute("arboles", lista);
@@ -33,36 +36,45 @@ public class ArbolController {
     }
  
     // -------------------------------
-    // FORMULARIO PARA AGREGAR UN ÁRBOL
+    // FORMULARIO NUEVO ARBOL
     // -------------------------------
-    @GetMapping("/arboles/nuevo")
-    public String mostrarFormulario(Arbol arbol) {
+    @GetMapping("/nuevo")
+    public String mostrarFormularioNuevo(Model model) {
+        Arbol arbol = new Arbol();
+        List<Estado> estados = estadoService.listar();
+        model.addAttribute("arbol", arbol);
+        model.addAttribute("estados", estados);
         return "form"; // templates/form.html
     }
  
     // -------------------------------
-    // GUARDAR NUEVO ÁRBOL
+    // GUARDAR ARBOL
     // -------------------------------
-    @PostMapping("/arboles/guardar")
+    @PostMapping("/guardar")
     public String guardarArbol(@ModelAttribute("arbol") Arbol arbol) {
         arbolService.guardar(arbol);
         return "redirect:/arboles";
     }
  
     // -------------------------------
-    // FORMULARIO PARA EDITAR UN ÁRBOL EXISTENTE
+    // FORMULARIO EDITAR ARBOL
     // -------------------------------
-    @GetMapping("/arboles/editar/{id}")
+    @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable("id") Long id, Model model) {
         Arbol arbol = arbolService.buscarPorId(id);
+        if (arbol == null) {
+            return "redirect:/arboles";
+        }
+        List<Estado> estados = estadoService.listar();
         model.addAttribute("arbol", arbol);
-        return "form"; // templates/form.html
+        model.addAttribute("estados", estados);
+        return "form";
     }
  
     // -------------------------------
-    // ELIMINAR UN ÁRBOL
+    // ELIMINAR ARBOL
     // -------------------------------
-    @GetMapping("/arboles/eliminar/{id}")
+    @GetMapping("/eliminar/{id}")
     public String eliminarArbol(@PathVariable("id") Long id) {
         arbolService.eliminar(id);
         return "redirect:/arboles";
